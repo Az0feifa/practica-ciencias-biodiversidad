@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Práctica de Ciencias: Biodiversidad, Adaptaciones y Energía</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="mascot">🧪</div>
+    <div>
+      <h1>Aventura de Ciencias</h1>
+      <p>Biodiversidad, adaptaciones, ecosistemas y energía. Lee la situación, encuentra la pista y decide.</p>
+    </div>
+  </header>
+
+  <section id="home" class="screen active">
+    <div class="hero">
+      <h2>Elige tu misión</h2>
+      <p>Las preguntas y las respuestas cambian de orden cada vez que juegas. No necesitas aprender una frase de memoria: tienes que descubrir qué significa.</p>
+
+      <div class="games">
+        <button class="game-card" type="button" onclick="startGame('concept')">
+          <div class="icon">🕵️‍♂️</div>
+          <h3>Juego 1: Detective científico</h3>
+          <p>Reconoce conceptos a partir de ejemplos nuevos: biodiversidad, hábitat, nicho, población, energía y amenazas ambientales.</p>
+          <span class="badge">Comprender conceptos</span>
+        </button>
+
+        <button class="game-card" type="button" onclick="startGame('mission')">
+          <div class="icon">🌿</div>
+          <h3>Juego 2: Misión Costa Rica</h3>
+          <p>Resuelve situaciones sobre animales, respiración, ecosistemas, biodiversidad y transformaciones de energía.</p>
+          <span class="badge">Aplicar lo aprendido</span>
+        </button>
+      </div>
+
+      <div class="topic-grid" aria-label="Temas de la práctica">
+        <span class="topic">Biodiversidad</span>
+        <span class="topic">Adaptaciones</span>
+        <span class="topic">Pulmones</span>
+        <span class="topic">Branquias</span>
+        <span class="topic">Piel</span>
+        <span class="topic">Tráqueas</span>
+        <span class="topic">Energía potencial</span>
+        <span class="topic">Energía cinética</span>
+        <span class="topic">Energía eólica</span>
+        <span class="topic">Individuo</span>
+        <span class="topic">Población</span>
+        <span class="topic">Hábitat</span>
+        <span class="topic">Nicho</span>
+        <span class="topic">Ecosistema</span>
+      </div>
+
+      <div class="tip">
+        💡 <strong>Truco de científico:</strong> busca palabras clave en la situación. Pregúntate: ¿habla de un lugar?, ¿de varios seres de la misma especie?, ¿de la función de un ser vivo?, ¿de cómo respira?, ¿de energía guardada o en movimiento?
+      </div>
+    </div>
+  </section>
+
+  <section id="game" class="screen">
+    <div class="topbar">
+      <button class="btn btn-secondary" type="button" onclick="goHome()">← Menú</button>
+      <div class="stats">
+        <div class="stat" id="scoreStat">⭐ 0</div>
+        <div class="stat" id="lifeStat">❤️❤️❤️</div>
+        <div class="stat" id="countStat">1 / 10</div>
+      </div>
+    </div>
+
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <div class="question-card" id="questionCard">
+      <div class="question-kind" id="questionKind"></div>
+      <h2 class="question" id="questionText"></h2>
+
+      <div class="question-tools">
+        <button class="btn btn-sound" type="button" onclick="speakCurrentQuestion()">🔊 Escuchar pregunta</button>
+      </div>
+
+      <div class="answers" id="answers"></div>
+
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="next-row">
+        <button class="btn btn-primary" id="nextBtn" type="button" onclick="nextQuestion()" style="display:none">Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="results" class="screen">
+    <div class="result">
+      <div class="big" id="resultIcon">🏆</div>
+      <div class="stars" id="resultStars">⭐⭐⭐</div>
+      <h2 id="resultTitle">¡Misión completada!</h2>
+      <div class="score" id="finalScore"></div>
+      <p id="resultText"></p>
+      <div class="result-actions">
+        <button class="btn btn-primary" type="button" onclick="restartGame()">Jugar otra vez</button>
+        <button class="btn btn-secondary" type="button" onclick="goHome()">Elegir otro juego</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="config.js"></script>
+<script src="concept.js"></script>
+<script src="mission.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
