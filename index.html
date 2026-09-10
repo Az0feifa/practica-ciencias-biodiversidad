@@ -1,112 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Práctica de Ciencias: Biodiversidad, Adaptaciones y Energía</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Misión Ciencias — Práctica Interactiva</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="app">
-  <header>
-    <div class="mascot">🧪</div>
-    <div>
-      <h1>Aventura de Ciencias</h1>
-      <p>Biodiversidad, adaptaciones, ecosistemas y energía. Lee la situación, encuentra la pista y decide.</p>
-    </div>
-  </header>
+  <main class="app-shell">
+    <section id="start-screen" class="screen active" aria-labelledby="game-title">
+      <div class="hero-icon" aria-hidden="true">🔬</div>
+      <p class="eyebrow">PRÁCTICA DE CIENCIAS</p>
+      <h1 id="game-title">Misión Ciencias</h1>
+      <p class="intro">
+        Superá retos sobre biodiversidad, ecosistemas, adaptaciones y energía.
+        Las preguntas y las respuestas cambian de orden cada vez que iniciás.
+      </p>
 
-  <section id="home" class="screen active">
-    <div class="hero">
-      <h2>Elige tu misión</h2>
-      <p>Las preguntas y las respuestas cambian de orden cada vez que juegas. No necesitas aprender una frase de memoria: tienes que descubrir qué significa.</p>
-
-      <div class="games">
-        <button class="game-card" type="button" onclick="startGame('concept')">
-          <div class="icon">🕵️‍♂️</div>
-          <h3>Juego 1: Detective científico</h3>
-          <p>Reconoce conceptos a partir de ejemplos nuevos: biodiversidad, hábitat, nicho, población, energía y amenazas ambientales.</p>
-          <span class="badge">Comprender conceptos</span>
-        </button>
-
-        <button class="game-card" type="button" onclick="startGame('mission')">
-          <div class="icon">🌿</div>
-          <h3>Juego 2: Misión Costa Rica</h3>
-          <p>Resuelve situaciones sobre animales, respiración, ecosistemas, biodiversidad y transformaciones de energía.</p>
-          <span class="badge">Aplicar lo aprendido</span>
-        </button>
+      <div class="topic-grid" aria-label="Temas de práctica">
+        <div class="topic-card"><span>🌿</span><b>Biodiversidad</b></div>
+        <div class="topic-card"><span>🐟</span><b>Adaptaciones</b></div>
+        <div class="topic-card"><span>⚡</span><b>Energía</b></div>
+        <div class="topic-card"><span>🌎</span><b>Ecosistemas</b></div>
       </div>
 
-      <div class="topic-grid" aria-label="Temas de la práctica">
-        <span class="topic">Biodiversidad</span>
-        <span class="topic">Adaptaciones</span>
-        <span class="topic">Pulmones</span>
-        <span class="topic">Branquias</span>
-        <span class="topic">Piel</span>
-        <span class="topic">Tráqueas</span>
-        <span class="topic">Energía potencial</span>
-        <span class="topic">Energía cinética</span>
-        <span class="topic">Energía eólica</span>
-        <span class="topic">Individuo</span>
-        <span class="topic">Población</span>
-        <span class="topic">Hábitat</span>
-        <span class="topic">Nicho</span>
-        <span class="topic">Ecosistema</span>
+      <div class="start-options">
+        <label for="question-count">Duración de la misión</label>
+        <select id="question-count">
+          <option value="10">10 retos</option>
+          <option value="15">15 retos</option>
+          <option value="all">Todos los retos</option>
+        </select>
       </div>
 
-      <div class="tip">
-        💡 <strong>Truco de científico:</strong> busca palabras clave en la situación. Pregúntate: ¿habla de un lugar?, ¿de varios seres de la misma especie?, ¿de la función de un ser vivo?, ¿de cómo respira?, ¿de energía guardada o en movimiento?
+      <button id="start-btn" class="primary-btn">🚀 Iniciar misión</button>
+
+      <div class="voice-note">
+        <span aria-hidden="true">🔊</span>
+        <span>Si una respuesta es incorrecta, una voz explicará la respuesta correcta.</span>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="game" class="screen">
-    <div class="topbar">
-      <button class="btn btn-secondary" type="button" onclick="goHome()">← Menú</button>
-      <div class="stats">
-        <div class="stat" id="scoreStat">⭐ 0</div>
-        <div class="stat" id="lifeStat">❤️❤️❤️</div>
-        <div class="stat" id="countStat">1 / 10</div>
+    <section id="game-screen" class="screen" aria-live="polite">
+      <header class="game-header">
+        <div>
+          <span class="small-label">PUNTOS</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="header-center">
+          <span id="progress-label">Reto 1 de 10</span>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+        <div>
+          <span class="small-label">RACHA</span>
+          <strong id="streak">0 🔥</strong>
+        </div>
+      </header>
+
+      <article id="question-card" class="question-card">
+        <div class="question-meta">
+          <span id="category-badge" class="category-badge">Ciencias</span>
+          <button id="voice-toggle" class="icon-btn" type="button" aria-pressed="true" title="Activar o desactivar voz">
+            🔊 Voz
+          </button>
+        </div>
+
+        <div id="question-visual" class="question-visual" aria-hidden="true">🌿</div>
+        <p id="activity-label" class="activity-label">Elegí la respuesta correcta</p>
+        <h2 id="question-text"></h2>
+
+        <div id="answers" class="answers" role="group" aria-label="Opciones de respuesta"></div>
+
+        <div id="feedback" class="feedback hidden" role="status">
+          <div id="feedback-icon" class="feedback-icon"></div>
+          <div>
+            <strong id="feedback-title"></strong>
+            <p id="feedback-text"></p>
+          </div>
+        </div>
+
+        <button id="next-btn" class="primary-btn next-btn hidden">Siguiente reto ➜</button>
+      </article>
+    </section>
+
+    <section id="end-screen" class="screen" aria-labelledby="end-title">
+      <div class="hero-icon" aria-hidden="true">🏆</div>
+      <p class="eyebrow">MISIÓN COMPLETADA</p>
+      <h1 id="end-title">¡Terminaste la práctica!</h1>
+
+      <div class="result-card">
+        <div>
+          <span class="small-label">PUNTOS</span>
+          <strong id="final-score">0</strong>
+        </div>
+        <div>
+          <span class="small-label">ACIERTOS</span>
+          <strong id="final-correct">0/0</strong>
+        </div>
       </div>
-    </div>
 
-    <div class="progress"><div id="progressBar"></div></div>
+      <p id="result-message" class="result-message"></p>
 
-    <div class="question-card" id="questionCard">
-      <div class="question-kind" id="questionKind"></div>
-      <h2 class="question" id="questionText"></h2>
+      <div id="review-box" class="review-box"></div>
 
-      <div class="question-tools">
-        <button class="btn btn-sound" type="button" onclick="speakCurrentQuestion()">🔊 Escuchar pregunta</button>
-      </div>
+      <button id="restart-btn" class="primary-btn">🔄 Jugar otra vez</button>
+      <p class="shuffle-note">Al reiniciar, los retos y las respuestas volverán a mezclarse.</p>
+    </section>
+  </main>
 
-      <div class="answers" id="answers"></div>
+  <div id="confetti" class="confetti-layer" aria-hidden="true"></div>
 
-      <div class="feedback" id="feedback" aria-live="polite"></div>
-      <div class="next-row">
-        <button class="btn btn-primary" id="nextBtn" type="button" onclick="nextQuestion()" style="display:none">Siguiente →</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="results" class="screen">
-    <div class="result">
-      <div class="big" id="resultIcon">🏆</div>
-      <div class="stars" id="resultStars">⭐⭐⭐</div>
-      <h2 id="resultTitle">¡Misión completada!</h2>
-      <div class="score" id="finalScore"></div>
-      <p id="resultText"></p>
-      <div class="result-actions">
-        <button class="btn btn-primary" type="button" onclick="restartGame()">Jugar otra vez</button>
-        <button class="btn btn-secondary" type="button" onclick="goHome()">Elegir otro juego</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<script src="config.js"></script>
-<script src="concept.js"></script>
-<script src="mission.js"></script>
-<script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
